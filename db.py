@@ -3,17 +3,14 @@ import os
 from dotenv import load_dotenv
 from sqlmodel import create_engine, SQLModel, Session
 
-load_dotenv()  # Pourquoi: charge .env pour récupérer DATABASE_URL
-DATABASE_URL = os.getenv("DATABASE_URL")
+load_dotenv()
+DATABASE_URL = os.getenv("DATABASE_URL")  # ex: postgresql+psycopg://todo_user:.../todo_db
 
-# echo=True pour voir les SQL dans la console (utile en debug)
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(DATABASE_URL, echo=True)  # echo=True: affiche SQL (debug)
 
 def init_db() -> None:
-    # Pourquoi: crée les tables d'après les modèles 'table=True' si absentes (dev)
-    SQLModel.metadata.create_all(engine)
+    SQLModel.metadata.create_all(engine)  # dev: crée les tables si absentes
 
 def get_session():
-    # Pourquoi: fournit une session DB pour chaque requête FastAPI
     with Session(engine) as session:
         yield session
