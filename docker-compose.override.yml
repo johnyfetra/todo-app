@@ -1,0 +1,24 @@
+services:
+  api:
+    build:
+      context: ./todo-api
+      target: dev
+    volumes:
+      - ./todo-api:/app
+    command: ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+
+  front:
+    build:
+      context: ./todo-front
+      target: dev
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - "${FRONT_DEV_PORT}:4200"
+    volumes:
+      - ./todo-front:/app
+      - /app/node_modules
+    command: ["npm", "run", "start", "--", "--host", "0.0.0.0", "--disable-host-check"]
+
+  db:
+    ports: []

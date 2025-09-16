@@ -1,6 +1,5 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.security import HTTPBearer
 
 from db import init_db
 from core.config import CORS_ORIGINS
@@ -12,23 +11,25 @@ app = FastAPI(
     description="API Todo avec JWT Auth"
 )
 
-security = HTTPBearer()
-
+# Middleware CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=CORS_ORIGINS,
+    allow_origins=CORS_ORIGINS, 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# Initialisation DB au démarrage
 @app.on_event("startup")
 def on_startup():
     init_db()
 
+# Routers
 app.include_router(auth.router)
 app.include_router(todos.router)
 
+# Route santé
 @app.get("/health")
 def health():
     return {"status": "ok"}
