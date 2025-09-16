@@ -5,8 +5,14 @@ from sqlmodel import select, Session
 from db import get_session
 from models import Todo, TodoCreate, TodoRead, TodoUpdate, User
 from routers.auth import get_current_user
+from fastapi.security import HTTPBearer
 
-router = APIRouter(prefix="/todos", tags=["todos"])
+
+router = APIRouter(
+    prefix="/todos",
+    tags=["todos"],
+    dependencies=[Depends(HTTPBearer())]   # 🔑 ajoute la sécurité Bearer
+)
 
 @router.get("", response_model=List[TodoRead])
 def list_todos(

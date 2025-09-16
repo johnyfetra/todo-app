@@ -1,11 +1,18 @@
-# app.py
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import HTTPBearer
+
 from db import init_db
 from core.config import CORS_ORIGINS
 from routers import auth, todos
 
-app = FastAPI(title="Todo API", version="0.5.0")
+app = FastAPI(
+    title="Todo API",
+    version="0.5.0",
+    description="API Todo avec JWT Auth"
+)
+
+security = HTTPBearer()
 
 app.add_middleware(
     CORSMiddleware,
@@ -17,7 +24,7 @@ app.add_middleware(
 
 @app.on_event("startup")
 def on_startup():
-    init_db()   # en dev: crée tables manquantes (user, todo)
+    init_db()
 
 app.include_router(auth.router)
 app.include_router(todos.router)

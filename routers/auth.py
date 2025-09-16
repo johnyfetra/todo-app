@@ -6,11 +6,16 @@ from db import get_session
 from models import User, UserCreate, UserRead, UserLogin
 from core.security import get_password_hash, verify_password, create_access_token
 from core.config import ALGORITHM, SECRET_KEY
+from fastapi.security import HTTPBearer
+
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 def get_user_by_email(session: Session, email: str) -> User | None:
     return session.exec(select(User).where(User.email == email)).first()
+
+bearer_scheme = HTTPBearer()
+
 
 @router.post("/register", response_model=UserRead, status_code=201)
 def register(payload: UserCreate, session: Session = Depends(get_session)):
