@@ -1,0 +1,52 @@
+# Root Gitignore for todo-app monorepo
+
+# --- Node / Angular ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+.todo
+.angular/cache/
+# Angular builds
+**/dist/
+**/.cache/
+
+# --- Python / FastAPI ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+.mypy_cache/
+.pytest_cache/
+.coverage*
+htmlcov/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# --- Editors / OS ---
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# --- Docker ---
+*.pid
+*.seed
+# Named volumes are managed by Docker; nothing to ignore here
+
+# --- Logs ---
+logs/
+*.log
+
+# --- Misc ---
+.swp
+.swo
