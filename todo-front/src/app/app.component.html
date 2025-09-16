@@ -1,0 +1,21 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button aria-label="Menu">
+    <mat-icon>check_circle</mat-icon>
+  </button>
+  <span style="margin-left: 8px; font-weight: 600;">{{ title }}</span>
+  <span style="flex: 1 1 auto;"></span>
+
+  <ng-container *ngIf="!isAuthenticated; else logged">
+    <button mat-button routerLink="/login">Login</button>
+    <button mat-stroked-button routerLink="/register">Register</button>
+  </ng-container>
+  <ng-template #logged>
+    <button mat-button (click)="logout()">Déconnexion</button>
+  </ng-template>
+</mat-toolbar>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+
+<app-loader></app-loader>

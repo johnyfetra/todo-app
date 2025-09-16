@@ -1,0 +1,18 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #fafafa;
+  color: #1f2937;
+}
+
+.container {
+  max-width: 720px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+/* Snack variants */
+.snack-success { background: #16a34a; color: #fff; }
+.snack-error { background: #dc2626; color: #fff; }
+.snack-info { background: #2563eb; color: #fff; }
