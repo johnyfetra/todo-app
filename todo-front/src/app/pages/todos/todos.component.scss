@@ -1,12 +1,25 @@
 :host {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background: #f9fafb; /* gris clair Tailwind */
+  display: block;
 }
 
-mat-toolbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
+mat-form-field.mat-mdc-form-field {
+  --mdc-outlined-text-field-outline-color: #FBC02D;
+  --mdc-outlined-text-field-focus-outline-color: #FBC02D;
 }
+
+mat-checkbox .mdc-checkbox__background {
+  border-radius: 50%;
+}
+
+button.mat-mdc-raised-button {
+  transition: transform .15s ease, box-shadow .2s ease;
+}
+button.mat-mdc-raised-button:hover { transform: translateY(-1px); }
+
+mat-card { transition: box-shadow .2s ease, transform .15s ease; }
+mat-card:hover { transform: translateY(-1px); }
+
+.custom-progress-bar {
+    --mdc-linear-progress-active-indicator-color: #FBC02D;
+    --mdc-linear-progress-track-color: #FFF9C4;
+  }

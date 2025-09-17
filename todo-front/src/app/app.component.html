@@ -1,16 +1,16 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" style="backdrop-filter: blur(4px);">
   <button mat-icon-button aria-label="Menu">
     <mat-icon>check_circle</mat-icon>
   </button>
-  <span style="margin-left: 8px; font-weight: 600;">{{ title }}</span>
+  <span style="margin-left: 8px; font-weight: 800; letter-spacing: .4px;">Todo App</span>
   <span style="flex: 1 1 auto;"></span>
-
   <ng-container *ngIf="!isAuthenticated; else logged">
-    <button mat-button routerLink="/login">Login</button>
-    <button mat-stroked-button routerLink="/register">Register</button>
+    <button mat-stroked-button routerLink="/login" style="margin-left: 8px;">Login</button>
+    <button mat-stroked-button routerLink="/register" style="margin-left: 8px;">Register</button>
   </ng-container>
   <ng-template #logged>
-    <button mat-button (click)="logout()">Déconnexion</button>
+    <button mat-stroked-button (click)="logout()"style="margin-left: 8px;">Déconnexion</button>
+
   </ng-template>
 </mat-toolbar>
 

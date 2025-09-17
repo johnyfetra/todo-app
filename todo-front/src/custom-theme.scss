@@ -3,8 +3,8 @@
 // For more information: https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
-$primary: mat.$orange-palette;
-$tertiary: mat.$amber-palette;
+$primary: mat.$amber-palette;
+$tertiary: mat.$yellow-palette;
 
 html {
   @include mat.theme((

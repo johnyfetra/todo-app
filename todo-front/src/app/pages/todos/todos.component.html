@@ -1,40 +1,40 @@
 <div class="container">
 
-  <!-- Add Form Card -->
-  <mat-card style="border-radius: 12px; margin-bottom: 24px;">
-    <form [formGroup]="form" (ngSubmit)="add()" style="display:flex; gap: 12px; align-items: center;">
-      <mat-form-field appearance="outline" style="flex:1; border-radius: 8px;">
-        <mat-label>Nouvelle tâche</mat-label>
-        <input matInput formControlName="title" placeholder="Saisir une tâche...">
-      </mat-form-field>
-      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Ajouter</button>
-    </form>
-  </mat-card>
+    <!-- Add Form Card -->
+    <mat-card style="border-radius: 16px; margin-bottom: 16px; background:#ffffff; padding: 25px;">
+      <form [formGroup]="form" (ngSubmit)="add()" style="display:flex; gap: 12px; align-items: center;">
+        <mat-form-field appearance="outline" style="flex:1; border-radius: 12px;">
+          <mat-label>Nouvelle tâche</mat-label>
+          <input matInput formControlName="title" placeholder="Nouvelle tâche">
+        </mat-form-field>
+        <button mat-stroked-button type="submit" [disabled]="form.invalid" style="margin-left: 8px;">Ajouter</button>
+      </form>
+    </mat-card>
 
-  <!-- Filter + Progress Bar -->
-  <div style="display:flex; gap:12px; align-items:center; margin: 0 0 16px 0;">
-    <mat-form-field appearance="outline" style="width: 220px;">
-      <mat-label>Filtrer</mat-label>
-      <mat-select [(value)]="filter">
-        <mat-option value="all">Toutes</mat-option>
-        <mat-option value="active">En cours</mat-option>
-        <mat-option value="done">Terminées</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <div style="flex:1;">
-      <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
-      <div style="margin-top: 6px; color:#475569; font-size: 13px;">
-        {{doneCount}} / {{todos.length}} complétées
-      </div>
+  <!-- Progress Bar + Stats -->
+  <div style="margin: 12px 0 16px 0;">
+    <div style="display:flex; align-items:center; gap:24px;">
+      <mat-progress-bar class="custom-progress-bar" color="accent" mode="determinate" [value]="progress"></mat-progress-bar>
+      <div style="white-space:nowrap; font-weight:600; color:#424242;">{{doneCount}} / {{todos.length}} complétées</div>
     </div>
   </div>
 
+  <!-- Filter below progress -->
+  <mat-form-field appearance="outline" style="width: 100%; border-radius: 12px; margin-bottom: 16px;">
+    <mat-label>Filtrer</mat-label>
+    <mat-select [(value)]="filter">
+      <mat-option value="all">Toutes</mat-option>
+      <mat-option value="active">En cours</mat-option>
+      <mat-option value="done">Terminées</mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <!-- Todo list -->
   <div style="display: flex; flex-direction: column; gap: 12px;">
-    <mat-card *ngFor="let t of filtered" style="border-radius: 12px;">
-      <div style="display:flex; align-items:center; gap: 12px; padding: 8px 4px;">
+    <mat-card *ngFor="let t of filtered" style="border-radius: 999px; background: {{t.done ? '#FFF9C4' : '#FFFFFF'}}; box-shadow: 0 8px 18px rgba(0,0,0,.06);">
+      <div style="display:flex; align-items:center; gap: 12px; padding: 10px 12px;">
         <mat-checkbox [checked]="t.done" (change)="toggle(t)" color="primary"></mat-checkbox>
-        <div style="flex:1; font-size:16px;" [style.text-decoration]="t.done ? 'line-through' : 'none'">{{ t.title }}</div>
+        <div style="flex:1; font-size:16px; color:#212121;" [style.text-decoration]="t.done ? 'line-through' : 'none'">{{ t.title }}</div>
         <button mat-icon-button color="warn" (click)="confirmDelete(t)" aria-label="Supprimer">
           <mat-icon>delete</mat-icon>
         </button>
