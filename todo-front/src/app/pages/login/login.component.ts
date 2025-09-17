@@ -7,8 +7,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from '../../../core/auth.interceptor';
 import { LoaderService } from '../../core/loader.service';
 import { NotifyService } from '../../core/notify.service';
 import { finalize } from 'rxjs/operators';
@@ -18,10 +16,7 @@ import { finalize } from 'rxjs/operators';
   selector: 'app-login',
   imports: [CommonModule, ReactiveFormsModule, MatCardModule, MatButtonModule, MatInputModule],
   templateUrl: './login.component.html',
-  styleUrls: [`./login.component.scss` ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-  ]
+  styleUrls: [`./login.component.scss` ]
 })
 export class LoginComponent {
   form;
