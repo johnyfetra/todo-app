@@ -12,34 +12,17 @@
     </mat-card>
 
   <!-- Progress Bar + Stats -->
-  <div style="margin: 12px 0 16px 0;">
-    <div style="display:flex; align-items:center; gap:24px;">
-      <mat-progress-bar class="custom-progress-bar" color="accent" mode="determinate" [value]="progress"></mat-progress-bar>
-      <div style="white-space:nowrap; font-weight:600; color:#424242;">{{doneCount}} / {{todos.length}} complétées</div>
-    </div>
-  </div>
+  <app-todo-progress [value]="progress" [done]="doneCount" [total]="todos.length"></app-todo-progress>
 
   <!-- Filter below progress -->
-  <mat-form-field appearance="outline" style="width: 100%; border-radius: 12px; margin-bottom: 16px;">
-    <mat-label>Filtrer</mat-label>
-    <mat-select [(value)]="filter">
-      <mat-option value="all">Toutes</mat-option>
-      <mat-option value="active">En cours</mat-option>
-      <mat-option value="done">Terminées</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <app-todo-filter [(value)]="filter"></app-todo-filter>
 
   <!-- Todo list -->
   <div style="display: flex; flex-direction: column; gap: 12px;">
-    <mat-card *ngFor="let t of filtered" style="border-radius: 999px; background: {{t.done ? '#FFF9C4' : '#FFFFFF'}}; box-shadow: 0 8px 18px rgba(0,0,0,.06);">
-      <div style="display:flex; align-items:center; gap: 12px; padding: 10px 12px;">
-        <mat-checkbox [checked]="t.done" (change)="toggle(t)" color="primary"></mat-checkbox>
-        <div style="flex:1; font-size:16px; color:#212121;" [style.text-decoration]="t.done ? 'line-through' : 'none'">{{ t.title }}</div>
-        <button mat-icon-button color="warn" (click)="confirmDelete(t)" aria-label="Supprimer">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </div>
-    </mat-card>
+    <app-todo-item *ngFor="let t of filtered"
+      [todo]="t"
+      (toggle)="toggle(t)"
+      (remove)="confirmDelete(t)"></app-todo-item>
   </div>
 
 </div>

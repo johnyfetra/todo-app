@@ -10,9 +10,13 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatDialog, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LoaderService } from '../../core/loader.service';
 import { NotifyService } from '../../core/notify.service';
+import { TodoProgressComponent } from './ui/todo-progress.component';
+import { TodoFilterComponent, TodoFilter } from './ui/todo-filter.component';
+import { TodoItemComponent } from './ui/todo-item.component';
+import { SimpleConfirmDialogComponent } from './ui/simple-confirm-dialog.component';
 
 @Component({
   standalone: true,
@@ -22,7 +26,8 @@ import { NotifyService } from '../../core/notify.service';
     MatCheckboxModule, MatIconModule,
     MatButtonModule, MatCardModule,
     MatProgressBarModule, MatFormFieldModule, MatInputModule,
-    MatSelectModule, MatDialogModule
+    MatSelectModule, MatDialogModule,
+    TodoProgressComponent, TodoFilterComponent, TodoItemComponent, SimpleConfirmDialogComponent
   ],
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.scss']
@@ -31,7 +36,7 @@ export class TodosComponent implements OnInit {
   private fb = inject(FormBuilder);
 
   todos: Todo[] = [];
-  filter: 'all' | 'active' | 'done' = 'all';
+  filter: TodoFilter = 'all';
   form = this.fb.group({ title: ['', [Validators.required, Validators.minLength(2)]] });
 
   constructor(private api: ApiTodoService, private loader: LoaderService, private notify: NotifyService, private dialog: MatDialog) {}
@@ -52,7 +57,7 @@ export class TodosComponent implements OnInit {
   load() {
     this.loader.show();
     this.api.list().subscribe({
-      next: data => this.todos = data,
+      next: (data: Todo[]) => this.todos = data,
       error: () => this.notify.error('Chargement des tâches échoué'),
       complete: () => this.loader.hide()
     });
@@ -63,7 +68,7 @@ export class TodosComponent implements OnInit {
     const title = this.form.get('title')!.value as string;
     this.loader.show();
     this.api.create({ title }).subscribe({
-      next: _ => { this.notify.success('Tâche ajoutée'); this.form.reset();  this.form.get('title')?.markAsPristine();
+      next: () => { this.notify.success('Tâche ajoutée'); this.form.reset();  this.form.get('title')?.markAsPristine();
         this.form.get('title')?.markAsUntouched();this.load(); },
       error: () => this.notify.error("Échec de l'ajout"),
       complete: () => this.loader.hide()
@@ -72,39 +77,24 @@ export class TodosComponent implements OnInit {
 
   toggle(t: Todo) {
     this.api.update(t.id, { done: !t.done }).subscribe({
-      next: _ => this.load(),
+      next: () => this.load(),
       error: () => this.notify.error('Échec de mise à jour')
     });
   }
 
   confirmDelete(t: Todo) {
-    const ref = this.dialog.open(SimpleConfirmDialog, { data: { title: 'Supprimer', message: 'Confirmer la suppression ?' } });
-    ref.afterClosed().subscribe(ok => { if (ok) this.remove(t); });
+    const ref = this.dialog.open(SimpleConfirmDialogComponent, { data: { title: 'Supprimer', message: 'Confirmer la suppression ?' } });
+    ref.afterClosed().subscribe((ok: boolean | undefined) => { if (ok) this.remove(t); });
   }
 
   remove(t: Todo) {
     this.loader.show();
     this.api.remove(t.id).subscribe({
-      next: _ => { this.notify.success('Tâche supprimée'); this.load(); },
+      next: () => { this.notify.success('Tâche supprimée'); this.load(); },
       error: () => this.notify.error('Échec de suppression'),
       complete: () => this.loader.hide()
     });
   }
 }
 
-@Component({
-  standalone: true,
-  selector: 'simple-confirm-dialog',
-  imports: [CommonModule, MatDialogModule, MatButtonModule],
-  template: `
-    <div style="padding:16px; max-width: 360px;">
-      <h3 style="margin:0 0 8px 0;">{{ data.title }}</h3>
-      <p style="margin:0 0 16px 0;">{{ data.message }}</p>
-      <div style="display:flex; justify-content:flex-end; gap:8px;">
-        <button mat-button mat-dialog-close="false">Annuler</button>
-        <button mat-raised-button color="warn" mat-dialog-close="true">Supprimer</button>
-      </div>
-    </div>
-  `
-})
-export class SimpleConfirmDialog { constructor(@Inject(MAT_DIALOG_DATA) public data: any) {} }
+
