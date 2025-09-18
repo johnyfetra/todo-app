@@ -1,7 +1,7 @@
 <mat-card style="border-radius: 16px; background: #FFFFFF;">
   <div style="display:flex; align-items:center; gap: 12px; padding: 10px 12px;">
-    <mat-checkbox [checked]="todo?.done" (change)="toggle.emit()" color="accent"></mat-checkbox>
-    <div style="flex:1; font-size:16px; color:#212121;" [style.text-decoration]="todo?.done ? 'line-through' : 'none'">{{ todo?.title }}</div>
+    <mat-checkbox [checked]="todo.done" (change)="toggle.emit()" color="accent"></mat-checkbox>
+    <div style="flex:1; font-size:16px; color:#212121;" [style.text-decoration]="todo.done ? 'line-through' : 'none'">{{ todo.title }}</div>
     <button mat-icon-button color="warn" (click)="remove.emit()" aria-label="Supprimer">
       <mat-icon>delete</mat-icon>
     </button>

@@ -13,10 +13,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LoaderService } from '../../core/loader.service';
 import { NotifyService } from '../../core/notify.service';
-import { TodoProgressComponent } from './ui/todo-progress.component';
-import { TodoFilterComponent, TodoFilter } from './ui/todo-filter.component';
-import { TodoItemComponent } from './ui/todo-item.component';
-import { SimpleConfirmDialogComponent } from './ui/simple-confirm-dialog.component';
+import { TodoProgressComponent } from '../../features/todos/ui/todo-progress/todo-progress.component';
+import { TodoFilterComponent, TodoFilter } from '../../features/todos/ui/todo-filter/todo-filter.component';
+import { TodoListComponent } from '../../features/todos/ui/todo-list/todo-list.component';
+import { SimpleConfirmDialogComponent } from '../../features/todos/ui/simple-confirm-dialog/simple-confirm-dialog.component';
 
 @Component({
   standalone: true,
@@ -27,7 +27,7 @@ import { SimpleConfirmDialogComponent } from './ui/simple-confirm-dialog.compone
     MatButtonModule, MatCardModule,
     MatProgressBarModule, MatFormFieldModule, MatInputModule,
     MatSelectModule, MatDialogModule,
-    TodoProgressComponent, TodoFilterComponent, TodoItemComponent, SimpleConfirmDialogComponent
+    TodoProgressComponent, TodoFilterComponent, TodoListComponent
   ],
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.scss']

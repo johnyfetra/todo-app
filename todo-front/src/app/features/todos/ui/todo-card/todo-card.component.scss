@@ -1,0 +1,15 @@
+/* Scoped styles if needed later */
+
+
+mat-card { transition: box-shadow .2s ease, transform .15s ease; }
+mat-card:hover { transform: translateY(-1px); }
+
+mat-checkbox .mdc-checkbox__background {
+  border-radius: 50%;
+}
+
+button.mat-mdc-raised-button {
+  transition: transform .15s ease, box-shadow .2s ease;
+}
+button.mat-mdc-raised-button:hover { transform: translateY(-1px); }
+

@@ -18,11 +18,6 @@
   <app-todo-filter [(value)]="filter"></app-todo-filter>
 
   <!-- Todo list -->
-  <div style="display: flex; flex-direction: column; gap: 12px;">
-    <app-todo-item *ngFor="let t of filtered"
-      [todo]="t"
-      (toggle)="toggle(t)"
-      (remove)="confirmDelete(t)"></app-todo-item>
-  </div>
+  <app-todo-list [items]="filtered" (toggle)="toggle($event)" (remove)="confirmDelete($event)"></app-todo-list>
 
 </div>

@@ -9,13 +9,13 @@ export interface TodoVM { id: number; title: string; done: boolean; }
 
 @Component({
   standalone: true,
-  selector: 'app-todo-item',
+  selector: 'app-todo-card',
   imports: [CommonModule, MatCardModule, MatCheckboxModule, MatIconModule, MatButtonModule],
-  templateUrl: './todo-item.component.html',
-  styleUrls: ['./todo-item.component.scss'],
+  templateUrl: './todo-card.component.html',
+  styleUrls: ['./todo-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TodoItemComponent {
+export class TodoCardComponent {
   @Input() todo!: TodoVM;
   @Output() toggle = new EventEmitter<void>();
   @Output() remove = new EventEmitter<void>();

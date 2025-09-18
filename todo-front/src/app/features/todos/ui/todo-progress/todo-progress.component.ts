@@ -12,8 +12,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 })
 export class TodoProgressComponent {
   @Input() value = 0;
-  @Input() total = 0;
   @Input() done = 0;
+  @Input() total = 0;
 }
 
 
