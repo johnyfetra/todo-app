@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-
-export interface Todo { id: number; title: string; done: boolean; }
-export interface TodoCreate { title: string; done?: boolean; }
+import { Todo, TodoCreate } from '../models/todo.model';
 
 @Injectable({ providedIn: 'root' })
 export class ApiTodoService {

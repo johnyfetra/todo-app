@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
-
-export type TodoFilter = 'all' | 'active' | 'done';
+import { TodoFilter } from '../../../../models/todo.model';
 
 @Component({
   standalone: true,

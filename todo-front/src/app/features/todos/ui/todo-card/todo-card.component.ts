@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, EventEmitter, input, Input, output, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-
-export interface TodoVM { id: number; title: string; done: boolean; }
+import { TodoVM } from '../../../../models/todo.model';
 
 @Component({
   standalone: true,
@@ -16,9 +15,28 @@ export interface TodoVM { id: number; title: string; done: boolean; }
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoCardComponent {
-  @Input() todo!: TodoVM;
-  @Output() toggle = new EventEmitter<void>();
-  @Output() remove = new EventEmitter<void>();
+  todo = input.required<TodoVM>();
+  toggle = output<void>();
+  remove = output<void>();
+
+  title = computed(() => this.todo().title);
+  done  = computed(() => this.todo().done);
+
+
+  onCardClick() {
+    this.toggle.emit();
+  }
+
+  onDeleteClick(event: MouseEvent) {
+    event.stopPropagation();
+    this.remove.emit();
+  }
+
+  onCheckboxClick(event: MouseEvent) {
+    event.stopPropagation();
+  }
+
+  onCheckboxChange(_ev: MatCheckboxChange) {
+    this.toggle.emit();
+  }
 }
-
-

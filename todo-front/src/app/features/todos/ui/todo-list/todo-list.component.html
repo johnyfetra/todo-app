@@ -1,6 +1,9 @@
 <div style="display: flex; flex-direction: column; gap: 12px;">
-  <app-todo-card *ngFor="let t of items" [todo]="t" (toggle)="toggle.emit(t)" (remove)="remove.emit(t)"></app-todo-card>
-
+  <app-todo-card
+    *ngFor="let t of items(); trackBy: trackById"
+   [todo]="t"
+   (toggle)="toggle.emit(t)"
+   (remove)="remove.emit(t)">
+  </app-todo-card>
 </div>
-
 

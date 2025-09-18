@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, input, Input, output, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TodoCardComponent, TodoVM } from '../todo-card/todo-card.component';
+import { TodoCardComponent } from '../todo-card/todo-card.component';
+import { TodoVM } from '../../../../models/todo.model';
 
 @Component({
   standalone: true,
@@ -11,9 +12,11 @@ import { TodoCardComponent, TodoVM } from '../todo-card/todo-card.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoListComponent {
-  @Input() items: TodoVM[] = [];
-  @Output() toggle = new EventEmitter<TodoVM>();
-  @Output() remove = new EventEmitter<TodoVM>();
+  items = input.required<TodoVM[]>();
+  toggle = output<TodoVM>();
+  remove = output<TodoVM>();
+
+  trackById = (_: number, t: TodoVM) => t.id;
 }
 
 

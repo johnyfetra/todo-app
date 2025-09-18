@@ -1,15 +1,88 @@
-/* Scoped styles if needed later */
+/* Carte + ligne */
+.todo {
+  border-radius: 16px;
+  background: #fff;
+  transition: box-shadow .2s ease, transform .15s ease;
 
-
-mat-card { transition: box-shadow .2s ease, transform .15s ease; }
-mat-card:hover { transform: translateY(-1px); }
-
-mat-checkbox .mdc-checkbox__background {
-  border-radius: 50%;
+  &:hover { transform: translateY(-1px); }
 }
 
-button.mat-mdc-raised-button {
-  transition: transform .15s ease, box-shadow .2s ease;
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
 }
-button.mat-mdc-raised-button:hover { transform: translateY(-1px); }
 
+.title {
+  flex: 1;
+  font-size: 16px;
+  color: #212121;
+  transition: opacity .2s ease;
+
+  &.done { text-decoration: line-through; opacity: .7; }
+}
+
+/* Couleur de la checkbox via MDC */
+.chk {
+  /* sélectionné */
+  --mdc-checkbox-selected-icon-color: #FBC02D;
+  --mdc-checkbox-selected-checkmark-color: #fff;
+  --mdc-checkbox-selected-hover-icon-color: #FBC02D;
+  --mdc-checkbox-selected-focus-icon-color: #FBC02D;
+  --mdc-checkbox-selected-pressed-icon-color: #FBC02D;
+
+  /* non sélectionné */
+  --mdc-checkbox-unselected-icon-color: #FBC02D;
+  --mdc-checkbox-unselected-hover-icon-color: #FBC02D;
+  --mdc-checkbox-unselected-focus-icon-color: #FBC02D;
+  --mdc-checkbox-unselected-pressed-icon-color: #FBC02D;
+
+  /* animation coin carré → rond */
+  .mdc-checkbox__background {
+    position: relative;
+    overflow: visible;
+    border-radius: 4px;
+    transition: border-radius .25s ease;
+  }
+
+  &.mat-mdc-checkbox-checked .mdc-checkbox__background { border-radius: 50%; }
+}
+
+/* Wrapper pour positionner l'explosion */
+.check-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* l’explosion prend la couleur #FBC02D et se cale sur la checkbox */
+  .burst {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    pointer-events: none;
+    transform: translate(-1px, 0) scale(0); /* léger ajustement visuel */
+    transform-origin: 50% 50%;
+    opacity: 0;
+    color: #FBC02D; /* currentColor de l'SVG */
+  }
+
+  /* Déclenchement: quand la checkbox est cochée, animer l'SVG */
+  .chk.mat-mdc-checkbox-checked + .burst {
+    animation: burst-pop .45s ease-out forwards;
+  }
+}
+
+/* Animation explosion simple */
+@keyframes burst-pop {
+  0%   { transform: scale(0);   opacity: .9; }
+  60%  { transform: scale(1.15); opacity: .35; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+
+/* Accessibilité : réduire les animations si demandé */
+@media (prefers-reduced-motion: reduce) {
+  .chk .mdc-checkbox__background { transition: none; }
+  .check-wrap .burst { animation: none !important; opacity: 0 !important; }
+}

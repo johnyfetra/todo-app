@@ -1,5 +1,6 @@
 import { Component, OnInit, inject, Inject } from '@angular/core';
-import { ApiTodoService, Todo } from '../../api/todo.service';
+import { ApiTodoService } from '../../api/todo.service';
+import { Todo, TodoFilter } from '../../models/todo.model';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -14,7 +15,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LoaderService } from '../../core/loader.service';
 import { NotifyService } from '../../core/notify.service';
 import { TodoProgressComponent } from '../../features/todos/ui/todo-progress/todo-progress.component';
-import { TodoFilterComponent, TodoFilter } from '../../features/todos/ui/todo-filter/todo-filter.component';
+import { TodoFilterComponent } from '../../features/todos/ui/todo-filter/todo-filter.component';
 import { TodoListComponent } from '../../features/todos/ui/todo-list/todo-list.component';
 import { SimpleConfirmDialogComponent } from '../../features/todos/ui/simple-confirm-dialog/simple-confirm-dialog.component';
 
