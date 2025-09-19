@@ -24,6 +24,7 @@ class UserLogin(SQLModel):
 class TodoBase(SQLModel):
     title: str
     done: bool = False
+    description: Optional[str] = None
 
 class Todo(TodoBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -38,3 +39,4 @@ class TodoRead(TodoBase):
 class TodoUpdate(SQLModel):
     title: Optional[str] = None
     done: Optional[bool] = None
+    description: Optional[str] = None

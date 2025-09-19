@@ -10,6 +10,9 @@ psycopg[binary]==3.2.3
 # Config
 python-dotenv==1.0.1
 
+# Migrations
+alembic==1.13.2
+
 # Auth & Security
 python-jose[cryptography]==3.3.0 
 passlib[bcrypt]==1.7.4             
