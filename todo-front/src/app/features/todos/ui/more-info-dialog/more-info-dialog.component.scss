@@ -84,7 +84,6 @@
   margin-right: 10px;
 }
 
-// Boutons et actions
 button {
   background-color: #ff9800;
   color: white;
@@ -94,11 +93,6 @@ button {
   font-size: 1em;
   text-transform: uppercase;
   transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #000000;
-    color: #ff9800;
-  }
 }
 
 // Actions en bas de la boîte de dialogue
