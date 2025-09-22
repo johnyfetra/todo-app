@@ -19,7 +19,8 @@ import { TodoFilterComponent } from '../../features/todos/ui/todo-filter/todo-fi
 import { TodoListComponent } from '../../features/todos/ui/todo-list/todo-list.component';
 import { SimpleConfirmDialogComponent } from '../../features/todos/ui/simple-confirm-dialog/simple-confirm-dialog.component';
 import { MoreInfoDialogComponent } from '../../features/todos/ui/more-info-dialog/more-info-dialog.component';
-import { EditTaskDialogComponent } from '../../features/todos/ui/edit-task-dialog/edit-task-dialog.component';
+import { TaskDialogComponent } from '../../features/todos/ui/task-dialog/task-dialog.component';
+import { TodoDialog } from '../../models/dialog.model';
 
 @Component({
   standalone: true,
@@ -30,7 +31,7 @@ import { EditTaskDialogComponent } from '../../features/todos/ui/edit-task-dialo
     MatButtonModule, MatCardModule,
     MatProgressBarModule, MatFormFieldModule, MatInputModule,
     MatSelectModule, MatDialogModule,
-    TodoProgressComponent, TodoFilterComponent, TodoListComponent, MoreInfoDialogComponent, EditTaskDialogComponent
+    TodoProgressComponent, TodoFilterComponent, TodoListComponent, MoreInfoDialogComponent, TaskDialogComponent
   ],
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.scss']
@@ -70,21 +71,24 @@ export class TodosComponent implements OnInit {
   }
 
   add() {
-    if (this.form.invalid) return;
-    const title = this.form.get('title')!.value as string;
-    const description = this.form.get('description')!.value as string;
-
-    const newTask: TodoCreate = {
-      title,
-      description
+    const creatDialogData: TodoDialog = {
+      dialogTitle: "Créer une nouvelle tâche",
+      buttonType: "Créer",
     }
 
-    this.loader.show();
-    this.api.create(newTask).subscribe({
-      next: () => { this.notify.success('Tâche ajoutée'); this.form.reset();  this.form.get('title')?.markAsPristine();
-        this.form.get('title')?.markAsUntouched();this.load(); },
-      error: () => this.notify.error("Échec de l'ajout"),
-      complete: () => this.loader.hide()
+    const dialogRef = this.dialog.open(TaskDialogComponent, {
+      width: '520px',
+      height: '550px',
+      data: creatDialogData
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      const newTask: TodoCreate = {
+        title: result.title,
+        description: result.description,
+        done: result.done
+      }
+      this.addTask(newTask)
     });
   }
 
@@ -100,6 +104,58 @@ export class TodosComponent implements OnInit {
     ref.afterClosed().subscribe((ok: boolean | undefined) => { if (ok) this.remove(t); });
   }
 
+  openMoreInfoDialog(t: Todo) {
+    const dialogRef = this.dialog.open(MoreInfoDialogComponent, {
+      width: '520px',
+      height: '600px',
+      data: t
+    });
+
+    dialogRef.afterClosed();
+  }
+
+  onEditTaskDialog(t: Todo) {
+    const editDialog: TodoDialog = {
+      dialogTitle: "Modifier une tâche",
+      buttonType: "Modifier",
+      todo: t
+    }
+
+    const dialogRef = this.dialog.open(TaskDialogComponent, {
+      width: '520px',
+      height: '550px',
+      data: editDialog
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      const editTask: Todo = {
+        id: t.id,
+        title: result.title,
+        description: result.description,
+        done: result.done
+      }
+      this.edit(editTask)
+    });
+  }
+
+  addTask(t: TodoCreate) {
+    this.loader.show();
+    this.api.create(t).subscribe({
+      next: () => { this.notify.success('Nouvelle tâche ajouté'); this.load(); },
+      error: () => this.notify.error('Création échoué'),
+      complete: () => this.loader.hide()
+    });
+  }
+
+  edit(t: Todo) {
+    this.loader.show();
+    this.api.update(t.id, t).subscribe({
+      next: () => { this.notify.success('Tâche modifiée'); this.load(); },
+      error: () => this.notify.error('Échec de la modification'),
+      complete: () => this.loader.hide()
+    });
+  }
+
   remove(t: Todo) {
     this.loader.show();
     this.api.remove(t.id).subscribe({
@@ -109,29 +165,6 @@ export class TodosComponent implements OnInit {
     });
   }
 
-  openMoreInfoDialog(t: Todo) {
-    const dialogRef = this.dialog.open(MoreInfoDialogComponent, {
-      width: '520px',
-      height: '600px',
-      data: t
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Le modal a été fermé');
-    });
-  }
-
-  onEditTaskDialog(t: Todo) {
-    const dialogRef = this.dialog.open(EditTaskDialogComponent, {
-      width: '520px',
-      height: '600px',
-      data: t
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Le modal a été fermé');
-    });
-  }
 }
 
 

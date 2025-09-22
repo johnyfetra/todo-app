@@ -20,6 +20,7 @@ export interface TodoVM {
   done: boolean;
 }
 
+
 // Filter type used across components/pages
 export type TodoFilter = 'all' | 'active' | 'done';
 

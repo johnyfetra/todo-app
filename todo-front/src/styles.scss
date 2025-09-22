@@ -32,3 +32,12 @@ html, body {
 
 /* Cards soft shadow and rounded */
 .mdc-card { border-radius: 16px !important; box-shadow: 0 6px 18px rgba(0,0,0,.08) !important; }
+
+.mdc-button:disabled,
+.mdc-raised-button:disabled,
+.mat-mdc-raised-button:disabled {
+  background-color: #bdbdbd !important;
+  color: #757575 !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+}

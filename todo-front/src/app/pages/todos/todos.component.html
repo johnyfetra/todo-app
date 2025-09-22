@@ -1,42 +1,18 @@
 <div class="container">
 
-  <!-- Add Form Card -->
-  <mat-card style="border-radius: 16px; margin-bottom: 16px; background:#ffffff; padding: 25px;">
-    <form [formGroup]="form" (ngSubmit)="add()">
-      <div style="display: flex; flex-direction: column; gap: 16px;">
-        <!-- Titre de la tâche -->
-        <mat-form-field appearance="outline" style="border-radius: 12px;">
-          <mat-label>Nouvelle tâche</mat-label>
-          <input matInput formControlName="title" placeholder="Nouvelle tâche">
-        </mat-form-field>
+   <!-- Bouton d'ajout -->
+   <div style="display: flex; justify-content: flex-end;">
+    <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    (click)="add()"
+    >
+    <mat-icon>add</mat-icon>
+    Créer
+  </button>
 
-        <!-- Description de la tâche -->
-        <mat-form-field appearance="outline" style="border-radius: 12px;">
-          <mat-label>Description (optionnelle)</mat-label>
-          <textarea
-            matInput
-            formControlName="description"
-            placeholder="Ajoutez une description..."
-            rows="3"
-            style="resize: vertical;">
-          </textarea>
-        </mat-form-field>
-
-        <!-- Bouton d'ajout -->
-        <div style="display: flex; justify-content: flex-end;">
-          <button
-            mat-raised-button
-            color="primary"
-            type="submit"
-            [disabled]="form.invalid"
-            style="border-radius: 8px;">
-            Ajouter
-          </button>
-        </div>
-      </div>
-    </form>
-  </mat-card>
-
+  </div>
   <!-- Progress Bar + Stats -->
   <app-todo-progress [value]="progress" [done]="doneCount" [total]="todos.length"></app-todo-progress>
 

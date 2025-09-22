@@ -1,0 +1,42 @@
+<div class="dialog-header">
+  <h2 mat-dialog-title>{{data.dialogTitle}}</h2>
+  <button mat-icon-button class="close-button" (click)="onCloseClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<mat-card class="task-card">
+  <!-- Barre orange en haut avec titre et bouton de fermeture -->
+
+  <form [formGroup]="form" (ngSubmit)="onValid()">
+    <div class="form-fields">
+
+      <!-- Titre de la tâche -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Titre de la tâche</mat-label>
+        <input matInput formControlName="title" placeholder="Nouvelle tâche" required>
+      </mat-form-field>
+
+      <!-- Description de la tâche -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Description (optionnelle)</mat-label>
+        <textarea matInput formControlName="description" placeholder="Ajoutez une description..." rows="3"></textarea>
+      </mat-form-field>
+
+      <!-- Liste déroulante pour le statut -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Statut</mat-label>
+        <mat-select formControlName="done">
+          <mat-option [value]="true">Terminée</mat-option>
+          <mat-option [value]="false">En cours</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Bouton de soumission -->
+      <div class="form-footer">
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || !hasChanged()">
+          {{data.buttonType}}
+        </button>
+      </div>
+    </div>
+  </form>
+</mat-card>
