@@ -15,6 +15,8 @@ export class TodoListComponent {
   items = input.required<TodoVM[]>();
   toggle = output<TodoVM>();
   remove = output<TodoVM>();
+  moreInfo = output<TodoVM>();
+  edit = output<TodoVM>();
 
   trackById = (_: number, t: TodoVM) => t.id;
 }

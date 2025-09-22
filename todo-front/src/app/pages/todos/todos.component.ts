@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, Inject } from '@angular/core';
 import { ApiTodoService } from '../../api/todo.service';
-import { Todo, TodoFilter } from '../../models/todo.model';
+import { Todo, TodoCreate, TodoFilter } from '../../models/todo.model';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -18,6 +18,8 @@ import { TodoProgressComponent } from '../../features/todos/ui/todo-progress/tod
 import { TodoFilterComponent } from '../../features/todos/ui/todo-filter/todo-filter.component';
 import { TodoListComponent } from '../../features/todos/ui/todo-list/todo-list.component';
 import { SimpleConfirmDialogComponent } from '../../features/todos/ui/simple-confirm-dialog/simple-confirm-dialog.component';
+import { MoreInfoDialogComponent } from '../../features/todos/ui/more-info-dialog/more-info-dialog.component';
+import { EditTaskDialogComponent } from '../../features/todos/ui/edit-task-dialog/edit-task-dialog.component';
 
 @Component({
   standalone: true,
@@ -28,7 +30,7 @@ import { SimpleConfirmDialogComponent } from '../../features/todos/ui/simple-con
     MatButtonModule, MatCardModule,
     MatProgressBarModule, MatFormFieldModule, MatInputModule,
     MatSelectModule, MatDialogModule,
-    TodoProgressComponent, TodoFilterComponent, TodoListComponent
+    TodoProgressComponent, TodoFilterComponent, TodoListComponent, MoreInfoDialogComponent, EditTaskDialogComponent
   ],
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.scss']
@@ -38,7 +40,10 @@ export class TodosComponent implements OnInit {
 
   todos: Todo[] = [];
   filter: TodoFilter = 'all';
-  form = this.fb.group({ title: ['', [Validators.required, Validators.minLength(2)]] });
+  form = this.fb.group({
+    title: ['', [Validators.required, Validators.minLength(2)]],
+    description: ''
+   });
 
   constructor(private api: ApiTodoService, private loader: LoaderService, private notify: NotifyService, private dialog: MatDialog) {}
 
@@ -67,8 +72,15 @@ export class TodosComponent implements OnInit {
   add() {
     if (this.form.invalid) return;
     const title = this.form.get('title')!.value as string;
+    const description = this.form.get('description')!.value as string;
+
+    const newTask: TodoCreate = {
+      title,
+      description
+    }
+
     this.loader.show();
-    this.api.create({ title }).subscribe({
+    this.api.create(newTask).subscribe({
       next: () => { this.notify.success('Tâche ajoutée'); this.form.reset();  this.form.get('title')?.markAsPristine();
         this.form.get('title')?.markAsUntouched();this.load(); },
       error: () => this.notify.error("Échec de l'ajout"),
@@ -94,6 +106,30 @@ export class TodosComponent implements OnInit {
       next: () => { this.notify.success('Tâche supprimée'); this.load(); },
       error: () => this.notify.error('Échec de suppression'),
       complete: () => this.loader.hide()
+    });
+  }
+
+  openMoreInfoDialog(t: Todo) {
+    const dialogRef = this.dialog.open(MoreInfoDialogComponent, {
+      width: '520px',
+      height: '600px',
+      data: t
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Le modal a été fermé');
+    });
+  }
+
+  onEditTaskDialog(t: Todo) {
+    const dialogRef = this.dialog.open(EditTaskDialogComponent, {
+      width: '520px',
+      height: '600px',
+      data: t
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Le modal a été fermé');
     });
   }
 }

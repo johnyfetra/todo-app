@@ -43,6 +43,22 @@
 
     <button
       mat-icon-button
+      color="primary"
+      (click)="onMoreInfoClick($event)"
+      aria-label="Plus d'info">
+      <mat-icon>info</mat-icon>
+    </button>
+
+    <button
+    mat-icon-button
+    color="default"
+    (click)="onEditClick($event)"
+    aria-label="Modifier la tâche">
+    <mat-icon>edit</mat-icon>
+    </button>
+
+    <button
+      mat-icon-button
       color="warn"
       (click)="onDeleteClick($event)"
       aria-label="Supprimer la tâche">

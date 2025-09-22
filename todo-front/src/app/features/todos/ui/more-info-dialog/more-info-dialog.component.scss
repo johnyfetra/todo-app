@@ -1,0 +1,109 @@
+// Header de la boîte de dialogue avec barre orange et bouton de fermeture
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ff9800; /* Couleur orange */
+  padding: 12px 24px;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+  h2 {
+    margin: 0;
+    font-size: 1.6em;
+    font-weight: 600;
+    color: white;
+  }
+
+  .close-button {
+    color: white;
+    font-size: 24px;
+  }
+}
+
+// Contenu principal de la boîte de dialogue
+.mat-dialog-content {
+  background-color: white;
+  padding: 30px 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+// Carte principale contenant les informations de la tâche
+.task-details-card {
+  background-color: white;
+  color: #333;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+// Conteneur d'information de la tâche (ID, statut, etc.)
+.task-info {
+  display: flex;
+  justify-content: space-between;  // Aligner les éléments de manière égale
+  margin-bottom: 15px;
+  font-size: 1.1em;
+  line-height: 1.5;
+
+  .value {
+    color: #333;  // Couleur noire pour les valeurs
+  }
+}
+
+// Alignement spécifique pour le statut
+.status {
+  display: flex;
+  justify-content: flex-end;  // Aligner le statut à droite
+  align-items: center;
+}
+
+// Carte contenant la description de la tâche
+.task-description-card {
+  background-color: #f4f4f4;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+
+  .key {
+    font-weight: 600;
+    color: #ff9800;
+  }
+
+  .value {
+    color: #333;
+    font-size: 1.1em;
+    line-height: 1.6;
+  }
+}
+
+.key {
+  font-weight: 600;
+  color: #ff9800;  // Couleur orange pour les clés
+  margin-right: 10px;
+}
+
+// Boutons et actions
+button {
+  background-color: #ff9800;
+  color: white;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1em;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #000000;
+    color: #ff9800;
+  }
+}
+
+// Actions en bas de la boîte de dialogue
+.dialog-actions {
+  display: flex;
+  justify-content: center;
+  padding: 10px 20px;
+}

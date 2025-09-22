@@ -3,7 +3,9 @@
     *ngFor="let t of items(); trackBy: trackById"
    [todo]="t"
    (toggle)="toggle.emit(t)"
-   (remove)="remove.emit(t)">
+   (remove)="remove.emit(t)"
+   (moreInfo)="moreInfo.emit(t)"
+   (edit)="edit.emit(t)">
   </app-todo-card>
 </div>
 

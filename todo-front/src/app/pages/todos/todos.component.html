@@ -1,15 +1,41 @@
 <div class="container">
 
-    <!-- Add Form Card -->
-    <mat-card style="border-radius: 16px; margin-bottom: 16px; background:#ffffff; padding: 25px;">
-      <form [formGroup]="form" (ngSubmit)="add()" style="display:flex; gap: 12px; align-items: center;">
-        <mat-form-field appearance="outline" style="flex:1; border-radius: 12px;">
+  <!-- Add Form Card -->
+  <mat-card style="border-radius: 16px; margin-bottom: 16px; background:#ffffff; padding: 25px;">
+    <form [formGroup]="form" (ngSubmit)="add()">
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <!-- Titre de la tâche -->
+        <mat-form-field appearance="outline" style="border-radius: 12px;">
           <mat-label>Nouvelle tâche</mat-label>
           <input matInput formControlName="title" placeholder="Nouvelle tâche">
         </mat-form-field>
-        <button mat-stroked-button type="submit" [disabled]="form.invalid" style="margin-left: 8px;">Ajouter</button>
-      </form>
-    </mat-card>
+
+        <!-- Description de la tâche -->
+        <mat-form-field appearance="outline" style="border-radius: 12px;">
+          <mat-label>Description (optionnelle)</mat-label>
+          <textarea
+            matInput
+            formControlName="description"
+            placeholder="Ajoutez une description..."
+            rows="3"
+            style="resize: vertical;">
+          </textarea>
+        </mat-form-field>
+
+        <!-- Bouton d'ajout -->
+        <div style="display: flex; justify-content: flex-end;">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="form.invalid"
+            style="border-radius: 8px;">
+            Ajouter
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-card>
 
   <!-- Progress Bar + Stats -->
   <app-todo-progress [value]="progress" [done]="doneCount" [total]="todos.length"></app-todo-progress>
@@ -18,6 +44,6 @@
   <app-todo-filter [(value)]="filter"></app-todo-filter>
 
   <!-- Todo list -->
-  <app-todo-list [items]="filtered" (toggle)="toggle($event)" (remove)="confirmDelete($event)"></app-todo-list>
+  <app-todo-list [items]="filtered" (toggle)="toggle($event)" (remove)="confirmDelete($event)" (moreInfo)="openMoreInfoDialog($event)" (edit)="onEditTaskDialog($event)"></app-todo-list>
 
 </div>

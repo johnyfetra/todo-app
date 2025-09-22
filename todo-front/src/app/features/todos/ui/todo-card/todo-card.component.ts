@@ -18,6 +18,8 @@ export class TodoCardComponent {
   todo = input.required<TodoVM>();
   toggle = output<void>();
   remove = output<void>();
+  moreInfo = output<void>();
+  edit = output<void>()
 
   title = computed(() => this.todo().title);
   done  = computed(() => this.todo().done);
@@ -38,5 +40,15 @@ export class TodoCardComponent {
 
   onCheckboxChange(_ev: MatCheckboxChange) {
     this.toggle.emit();
+  }
+
+  onMoreInfoClick(event: MouseEvent) {
+    event.stopPropagation();
+    this.moreInfo.emit();
+  }
+
+  onEditClick(event: MouseEvent) {
+    event.stopPropagation();
+    this.edit.emit();
   }
 }

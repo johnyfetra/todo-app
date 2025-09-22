@@ -1,0 +1,35 @@
+<!-- Header avec titre et bouton de fermeture -->
+<div class="dialog-header">
+  <h2 mat-dialog-title>Informations de la tâche</h2>
+  <button mat-icon-button class="close-button" (click)="onCloseClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content class="dialog-content">
+  <mat-card class="task-details-card">
+    <!-- Affichage ID et Statut sur une même ligne avec alignement spécifique -->
+    <div class="task-info" *ngIf="task.id || task.done !== undefined">
+      <span><strong class="key">ID de la tâche :</strong> <span class="value">{{ task.id }}</span></span>
+      <span class="status">
+        <strong class="key">Statut :</strong>
+        <mat-chip><span class="value">{{ task.done ? 'Terminée' : 'En cours' }}</span></mat-chip>
+      </span>
+    </div>
+
+    <!-- Affichage du titre de la tâche -->
+    <div class="" *ngIf="task.title">
+      <strong class="key">Nom de la tâche :</strong> <span class="value">{{ task.title }}</span>
+    </div>
+
+    <!-- Affichage de la description de la tâche dans une carte -->
+    <mat-card class="task-description-card" *ngIf="task.description">
+      <h3 class="key">Description :</h3>
+      <p class="value">{{ task.description }}</p>
+    </mat-card>
+  </mat-card>
+</mat-dialog-content>
+
+<mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="onCloseClick()">Fermer</button>
+</mat-dialog-actions>
