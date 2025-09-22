@@ -13,6 +13,7 @@ import { TodoVM } from '../../../../models/todo.model';
 })
 export class TodoListComponent {
   items = input.required<TodoVM[]>();
+  loading = input<boolean>(false);
   toggle = output<TodoVM>();
   remove = output<TodoVM>();
   moreInfo = output<TodoVM>();

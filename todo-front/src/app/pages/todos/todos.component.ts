@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LoaderService } from '../../core/loader.service';
+import { Observable } from 'rxjs';
 import { NotifyService } from '../../core/notify.service';
 import { TodoProgressComponent } from '../../features/todos/ui/todo-progress/todo-progress.component';
 import { TodoFilterComponent } from '../../features/todos/ui/todo-filter/todo-filter.component';
@@ -41,12 +42,15 @@ export class TodosComponent implements OnInit {
 
   todos: Todo[] = [];
   filter: TodoFilter = 'all';
+  isLoading$: Observable<boolean>;
   form = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(2)]],
     description: ''
    });
 
-  constructor(private api: ApiTodoService, private loader: LoaderService, private notify: NotifyService, private dialog: MatDialog) {}
+  constructor(private api: ApiTodoService, private loader: LoaderService, private notify: NotifyService, private dialog: MatDialog) {
+    this.isLoading$ = this.loader.active$;
+  }
 
   ngOnInit() { this.load(); }
 

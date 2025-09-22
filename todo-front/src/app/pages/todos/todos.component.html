@@ -22,6 +22,6 @@
   <app-todo-filter [(value)]="filter"></app-todo-filter>
 
   <!-- Todo list -->
-  <app-todo-list [items]="filtered" (toggle)="toggle($event)" (remove)="confirmDelete($event)" (moreInfo)="openMoreInfoDialog($event)" (edit)="onEditTaskDialog($event)"></app-todo-list>
+  <app-todo-list [items]="filtered" [loading]="(isLoading$ | async) ?? false" (toggle)="toggle($event)" (remove)="confirmDelete($event)" (moreInfo)="openMoreInfoDialog($event)" (edit)="onEditTaskDialog($event)"></app-todo-list>
 
 </div>

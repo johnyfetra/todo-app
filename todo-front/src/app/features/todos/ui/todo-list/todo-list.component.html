@@ -1,11 +1,26 @@
-<div style="display: flex; flex-direction: column; gap: 12px;">
-  <app-todo-card
-    *ngFor="let t of items(); trackBy: trackById"
-   [todo]="t"
-   (toggle)="toggle.emit(t)"
-   (remove)="remove.emit(t)"
-   (moreInfo)="moreInfo.emit(t)"
-   (edit)="edit.emit(t)">
-  </app-todo-card>
-</div>
+<ng-container *ngIf="!loading(); else skeleton">
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <app-todo-card
+      *ngFor="let t of items(); trackBy: trackById"
+      [todo]="t"
+      (toggle)="toggle.emit(t)"
+      (remove)="remove.emit(t)"
+      (moreInfo)="moreInfo.emit(t)"
+      (edit)="edit.emit(t)">
+    </app-todo-card>
+  </div>
+</ng-container>
+
+<ng-template #skeleton>
+  <div class="skeleton-list">
+    <div class="skeleton-item" *ngFor="let _ of [1,2,3,4,5]">
+      <div class="skeleton-checkbox"></div>
+      <div class="skeleton-title"></div>
+      <div class="skeleton-actions">
+        <div class="skeleton-icon"></div>
+        <div class="skeleton-icon"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>
 

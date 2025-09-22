@@ -1,3 +1,60 @@
 /* Scoped styles if needed later */
 
+.skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skeleton-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f1f1f1;
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  animation: shimmer 1.4s infinite;
+}
+
+.skeleton-checkbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background: #e0e0e0;
+}
+
+.skeleton-title {
+  flex: 1;
+  height: 16px;
+  border-radius: 4px;
+  background: #e0e0e0;
+}
+
+.skeleton-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skeleton-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background: #e0e0e0;
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
 
