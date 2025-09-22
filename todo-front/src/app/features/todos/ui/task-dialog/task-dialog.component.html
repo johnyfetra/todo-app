@@ -14,6 +14,12 @@
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Titre de la tâche</mat-label>
         <input matInput formControlName="title" placeholder="Nouvelle tâche" required>
+        <mat-error *ngIf="form.get('title')?.hasError('required')">
+          Veuillez renseigner le titre de votre tâche.
+        </mat-error>
+        <mat-error *ngIf="!form.get('title')?.hasError('required') && form.get('title')?.hasError('minlength')">
+          Veuillez saisir au moins 2 caractères.
+        </mat-error>
       </mat-form-field>
 
       <!-- Description de la tâche -->
