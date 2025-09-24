@@ -1,0 +1,28 @@
+# Dockerfile optimisé pour Railway - API
+ARG PYTHON_VERSION=3.12
+FROM python:${PYTHON_VERSION}-slim AS base
+
+# Variables d'environnement
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    ENV=production
+
+WORKDIR /app
+
+# Installation des dépendances système
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Installation des dépendances Python
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+# Copie du code source
+COPY . /app
+
+# Exposer le port (Railway utilise la variable PORT)
+EXPOSE 8000
+
+# Commande de démarrage optimisée pour Railway
+CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port $PORT --workers 1"]
