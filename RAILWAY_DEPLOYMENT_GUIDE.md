@@ -149,7 +149,7 @@ railway redeploy
 Vérifiez que les CORS_ORIGINS incluent votre domaine Railway :
 
 ```python
-CORS_ORIGINS = [
+task-dialog._ORIGINS = [
     "https://votre-app.railway.app",
     "https://votre-app.up.railway.app"
 ]

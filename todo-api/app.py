@@ -29,6 +29,15 @@ def on_startup():
 app.include_router(auth.router)
 app.include_router(todos.router)
 
+# Route racine pour 200 OK
+@app.get("/", include_in_schema=False)
+def root_get():
+    return {"name": "Todo API", "status": "ok"}
+
+@app.head("/", include_in_schema=False)
+def root_head():
+    return {"status": "ok"}
+
 # Route santé
 @app.get("/health")
 def health():

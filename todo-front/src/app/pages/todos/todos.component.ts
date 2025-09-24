@@ -32,7 +32,7 @@ import { TodoDialog } from '../../models/dialog.model';
     MatButtonModule, MatCardModule,
     MatProgressBarModule, MatFormFieldModule, MatInputModule,
     MatSelectModule, MatDialogModule,
-    TodoProgressComponent, TodoFilterComponent, TodoListComponent, MoreInfoDialogComponent, TaskDialogComponent
+    TodoProgressComponent, TodoFilterComponent, TodoListComponent,
   ],
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.scss']
