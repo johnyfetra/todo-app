@@ -1,66 +1,130 @@
 # Fichiers d'environnement
+
 # Ne jamais commiter les secrets !
-.env
-.env.*
+
 !.env.example
 
+
+
 # Fichiers de déploiement contenant des secrets
+
 railway.env
+
+
 
 # === Frontend (Angular - todo-front) ===
 
+
+
 # Fichiers de build et dépendances
+
 todo-front/dist/
+
 todo-front/node_modules/
+
 todo-front/coverage/
 
+
+
 # Cache et logs Angular/npm
+
 todo-front/.angular/
+
 todo-front/npm-debug.log*
+
 todo-front/yarn-debug.log*
+
 todo-front/yarn-error.log*
+
 todo-front/pnpm-debug.log*
+
+
 
 # === Backend (Python/FastAPI - todo-api) ===
 
+
+
 # Environnement virtuel Python
+
 todo-api/.venv/
+
 todo-api/venv/
 
+
+
 # Fichiers compilés et cache Python
+
 todo-api/__pycache__/
+
 *.py[cod]
+
 *.pyo
+
 *.pyd
+
 *.so
 
+
+
 # Base de données SQLite locale
+
 todo-api/todo.db
 
+
+
 # Dossiers de distribution et d'installation
+
 todo-api/*.egg-info/
+
 todo-api/.eggs/
 
+
+
 # Cache de tests
+
 todo-api/.pytest_cache/
+
 todo-api/.mypy_cache/
+
 todo-api/.coverage
+
 todo-api/htmlcov/
+
+
 
 # === Fichiers IDE et système ===
 
+
+
 # JetBrains (PyCharm, WebStorm, etc.)
+
 .idea/
+
 *.iml
 
+
+
 # VSCode
-.vscode/
+
+
+
 
 # Fichiers système
+
 .DS_Store
+
 Thumbs.db
+
 *.log
+
 .swp
+
 .swo
+
 *.pid
+
 *.seed
+
+node_modules
+
+config.bat
