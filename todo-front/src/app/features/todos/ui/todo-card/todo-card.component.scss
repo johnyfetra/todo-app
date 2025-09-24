@@ -5,6 +5,22 @@
   transition: box-shadow .2s ease, transform .15s ease;
 
   &:hover { transform: translateY(-1px); }
+
+  .row {
+  display: flex;
+  align-items: center;
+  }
+
+  .actions {
+    display: flex;
+    gap: 4px; /* espace entre les boutons */
+  }
+
+  mat-divider[vertical] {
+    height: 24px;       /* hauteur de la barre */
+    margin: 0 8px;      /* espacement horizontal */
+  }
+
 }
 
 .row {
